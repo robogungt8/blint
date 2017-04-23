@@ -29,15 +29,17 @@ comments = []
 
 for submission in subreddit.hot(limit=20):
     for top_level_comment in submission.comments:
-        #print(top_level_comment.body)
-        comments.append(top_level_comment.body)
-        # print(type(comments[0]))
+        # if top_level_comment == '...':
+        #     continue
+        # else:
+        #     print(top_level_comment.body)
+        #print top_level_comment
         if re.search("me too thanks", top_level_comment.body, re.IGNORECASE):
-            continue
-            # top_level_comment.reply("Me 3 thx <3")
+            top_level_comment.reply("I <3 U")
             # print top_level_comment.body
             # comments.append(tb(top_level_comment.body))
-            # print "We would reply to: " + top_level_comment.body
+            print "We replied to: " + top_level_comment.body
+            break
 
 # list for tokenized documents in loop
 texts = []
