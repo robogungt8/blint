@@ -31,13 +31,37 @@ for submission in subreddit.hot(limit=5):
     for top_level_comment in submission.comments:
         print(top_level_comment.body)
         comments.append(top_level_comment.body)
-        print(type(comments[0]))
+        # print(type(comments[0]))
         if re.search("me too thanks", top_level_comment.body, re.IGNORECASE):
-            top_level_comment.reply("Me 3 thx <3")
-            print top_level_comment.body
+            # top_level_comment.reply("Me 3 thx <3")
+            # print top_level_comment.body
             # comments.append(tb(top_level_comment.body))
             # print "We would reply to: " + top_level_comment.body
 
+# list for tokenized documents in loop
+texts = []
+
+# loop through document list
+for i in comments:
+
+    # clean and tokenize document string
+    raw = i.lower()
+    tokens = tokenizer.tokenize(raw)
+
+    # remove stop words from tokens
+    stopped_tokens = [i for i in tokens if not i in en_stop]
+
+    # stem tokens
+    stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
+
+    # add tokens to list
+    texts.append(stemmed_tokens)
+
+# turn our tokenized documents into a id <-> term dictionary
+dictionary = corpora.Dictionary(texts)
+
+# convert tokenized documents into a document-term matrix
+corpus = [dictionary.doc2bow(text) for text in texts]
 
     # if re.search("me too thanks", submission.title, re.IGNORECASE):
     #     submission.reply("Size doesn't matter. It's about the passion.")
