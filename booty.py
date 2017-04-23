@@ -30,8 +30,8 @@ comments = []
 for submission in subreddit.hot(limit=5):
     for top_level_comment in submission.comments:
         print(top_level_comment.body)
-		comments.append(top_level_comment.body)
-		print(type(comments[0]))
+        comments.append(top_level_comment.body)
+        print(type(comments[0]))
         if re.search("me too thanks", top_level_comment.body, re.IGNORECASE):
             top_level_comment.reply("Me 3 thx <3")
             print top_level_comment.body
